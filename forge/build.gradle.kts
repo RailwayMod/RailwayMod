@@ -34,5 +34,7 @@ tasks {
         archiveBaseName.set(rootProject.name + "-Forge")
 
         from(configurations.api.get().apply { isCanBeResolved = true }.map { if (it.isDirectory) it else zipTree(it) })
+
+        dependsOn(":core:jar")
     }
 }
