@@ -4,6 +4,8 @@ plugins {
     kotlin("jvm") version "1.6.10"
 }
 
+group = "dev.siro256.mcmod.railwaymod"
+
 allprojects {
     apply(plugin = "kotlin")
 
@@ -51,5 +53,3 @@ allprojects {
         set("description", "Realistic train mod for Minecraft")
     }
 }
-
-group = "dev.siro256.mcmod.railwaymod"
