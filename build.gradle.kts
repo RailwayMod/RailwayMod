@@ -46,7 +46,7 @@ allprojects {
 
         //authors
         listOf(
-            "Siro_256 Twitter:@ffffff_256"
+            "Siro_256 Twitter: @ffffff_256"
         ).let { set("authors", it) }
 
         //description
