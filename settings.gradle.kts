@@ -10,4 +10,6 @@ pluginManagement {
 
 rootProject.name = "RailwayMod"
 
-include("core", "forge", "fabric")
+include("core")
+include("fabric")
+include("forge")
