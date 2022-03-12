@@ -16,6 +16,11 @@ dependencies {
 
 tasks {
     }
+
+    getByName("compileKotlin", KotlinCompile::class) {
+        destinationDirectory.set(File(buildDir, "classes/java/main"))
+    }
+
     //Gradle didn't create jar by task "jar"
     create("createLibraryJar", Jar::class) {
         archiveBaseName.set(project.name)
