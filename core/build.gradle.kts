@@ -6,6 +6,8 @@ plugins {
 group = rootProject.group.toString() + ".core"
 
 dependencies {
+    implementation(kotlin("stdlib"))
+
     //Minecraft API, using fabric's mapping
     //Latest version: https://fabricmc.net/develop/
     add("minecraft", "com.mojang:minecraft:1.18.2")
