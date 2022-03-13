@@ -1,3 +1,4 @@
+import org.apache.tools.ant.filters.ReplaceTokens
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -22,6 +23,19 @@ tasks {
         into(File(buildDir, "tempSrc/main/kotlin/"))
     }
 
+    create("replaceValuePlaceholder", Copy::class) {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+        from(File(buildDir, "tempSrc/main/kotlin/"))
+        into(File(projectDir, "src/main/kotlin/"))
+
+        mapOf(
+            "modId" to rootProject.name.toLowerCase(),
+            "modName" to rootProject.name,
+            "modVersion" to rootProject.version
+        ).let { filter<ReplaceTokens>("tokens" to it) }
+
+        dependsOn(getByName("moveSourceToTemp"))
     }
 
     getByName("compileKotlin", KotlinCompile::class) {
