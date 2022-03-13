@@ -38,7 +38,7 @@ tasks {
         dependsOn(getByName("moveSourceToTemp"))
     }
 
-    getByName("compileKotlin", KotlinCompile::class) {
+    compileKotlin {
         destinationDirectory.set(File(buildDir, "classes/java/main"))
 
         dependsOn("replaceValuePlaceholder")
