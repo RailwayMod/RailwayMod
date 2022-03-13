@@ -1,5 +1,4 @@
 import org.apache.tools.ant.filters.ReplaceTokens
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     //Latest version: https://fabricmc.net/develop/
