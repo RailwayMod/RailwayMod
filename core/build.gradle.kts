@@ -54,5 +54,6 @@ tasks {
         archiveBaseName.set(project.name)
     }
 
+    getByName("build").dependsOn(getByName("moveSourceFromTemp"))
     getByName("jar").dependsOn(getByName("createLibraryJar"))
 }
