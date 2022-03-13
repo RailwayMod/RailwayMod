@@ -49,9 +49,17 @@ tasks {
         into(File(projectDir, "src/main/kotlin/"))
     }
 
+    create("includeResources", Copy::class) {
+        from(sourceSets.main.get().resources.srcDirs)
+        include("**")
+        into(File(buildDir, "resources/main/"))
+    }
+
     //Gradle didn't create jar by task "jar"
     create("createLibraryJar", Jar::class) {
         archiveBaseName.set(project.name)
+
+        dependsOn(getByName("includeResources"))
     }
 
     getByName("build").dependsOn(getByName("moveSourceFromTemp"))
