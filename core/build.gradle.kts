@@ -15,12 +15,22 @@ dependencies {
 }
 
 tasks {
+    create("moveSourceToTemp", Copy::class) {
+        from(File(projectDir, "src/main/kotlin/"))
+        into(File(buildDir, "tempSrc/main/kotlin/"))
+    }
+
     }
 
     getByName("compileKotlin", KotlinCompile::class) {
         destinationDirectory.set(File(buildDir, "classes/java/main"))
 
         dependsOn("replaceValuePlaceholder")
+    }
+
+    create("moveSourceFromTemp", Copy::class) {
+        from(File(buildDir, "tempSrc/main/kotlin/"))
+        into(File(projectDir, "src/main/kotlin/"))
     }
 
     //Gradle didn't create jar by task "jar"
