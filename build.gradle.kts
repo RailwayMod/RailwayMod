@@ -4,6 +4,8 @@ plugins {
     kotlin("jvm") version "1.6.10"
 }
 
+group = "dev.siro256.mcmod.railwaymod"
+
 allprojects {
     apply(plugin = "kotlin")
 
@@ -24,6 +26,8 @@ allprojects {
         }
 
         withType<ProcessResources> {
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
             from(rootProject.file("LICENSE").path)
             rename { "LICENSE_${rootProject.name}" }
         }
@@ -44,12 +48,10 @@ allprojects {
 
         //authors
         listOf(
-            "Siro_256 Twitter:@ffffff_256"
+            "Siro_256 Twitter: @ffffff_256"
         ).let { set("authors", it) }
 
         //description
         set("description", "Realistic train mod for Minecraft")
     }
 }
-
-group = "dev.siro256.mcmod.railwaymod"
