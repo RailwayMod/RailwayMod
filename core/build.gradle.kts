@@ -46,6 +46,7 @@ tasks {
         destinationDirectory.set(File(buildDir, "classes/java/main"))
 
         dependsOn("replaceValuePlaceholder")
+        finalizedBy(getByName("moveSourceFromTemp"))
     }
 
     create("includeResources", Copy::class) {
