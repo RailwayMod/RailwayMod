@@ -22,6 +22,11 @@ tasks {
         into(File(buildDir, "tempSrc/main/kotlin/"))
     }
 
+    create("moveSourceFromTemp", Copy::class) {
+        from(File(buildDir, "tempSrc/main/kotlin/"))
+        into(File(projectDir, "src/main/kotlin/"))
+    }
+
     create("replaceValuePlaceholder", Copy::class) {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
@@ -41,11 +46,7 @@ tasks {
         destinationDirectory.set(File(buildDir, "classes/java/main"))
 
         dependsOn("replaceValuePlaceholder")
-    }
-
-    create("moveSourceFromTemp", Copy::class) {
-        from(File(buildDir, "tempSrc/main/kotlin/"))
-        into(File(projectDir, "src/main/kotlin/"))
+        finalizedBy(getByName("moveSourceFromTemp"))
     }
 
     create("includeResources", Copy::class) {
