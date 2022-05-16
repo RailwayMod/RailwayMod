@@ -6,7 +6,7 @@ plugins {
 group = rootProject.group.toString() + ".fabric"
 
 dependencies {
-    api(project(":core"))
+    api(project(":core").dependencyProject.buildDir.let { fileTree(File(it, "devlibs")) })
 
     api(kotlin("stdlib"))
 
