@@ -17,11 +17,11 @@ dependencies {
 }
 
 tasks {
-    create("replaceValuePlaceholder", Copy::class) {
+    create("cloneSource", Copy::class) {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-        from(File(buildDir, "tempSrc/main/kotlin/"))
-        into(File(projectDir, "src/main/kotlin/"))
+        from(File(projectDir, "src/main/kotlin/"))
+        into(File(buildDir, "tmpSrc/main/kotlin"))
 
         mapOf(
             "modId" to rootProject.name.toLowerCase(),
@@ -32,8 +32,6 @@ tasks {
 
     compileKotlin {
         destinationDirectory.set(File(buildDir, "classes/java/main"))
-
-        dependsOn("replaceValuePlaceholder")
     }
 
     create("includeResources", Copy::class) {
