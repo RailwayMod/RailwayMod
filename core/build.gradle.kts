@@ -16,37 +16,27 @@ dependencies {
     add("mappings", loom.officialMojangMappings())
 }
 
+val tmpSrcDir = File(buildDir, "tmpSrc/main/kotlin")
+
 tasks {
-    create("moveSourceToTemp", Copy::class) {
-        from(File(projectDir, "src/main/kotlin/"))
-        into(File(buildDir, "tempSrc/main/kotlin/"))
-    }
-
-    create("moveSourceFromTemp", Copy::class) {
-        from(File(buildDir, "tempSrc/main/kotlin/"))
-        into(File(projectDir, "src/main/kotlin/"))
-    }
-
-    create("replaceValuePlaceholder", Copy::class) {
+    create("cloneSource", Copy::class) {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-        from(File(buildDir, "tempSrc/main/kotlin/"))
-        into(File(projectDir, "src/main/kotlin/"))
+        from(File(projectDir, "src/main/kotlin/"))
+        into(tmpSrcDir)
 
         mapOf(
             "modId" to rootProject.name.toLowerCase(),
             "modName" to rootProject.name,
             "modVersion" to rootProject.version
         ).let { filter<ReplaceTokens>("tokens" to it) }
-
-        dependsOn(getByName("moveSourceToTemp"))
     }
 
     compileKotlin {
+        doFirst { source = fileTree(tmpSrcDir) }
         destinationDirectory.set(File(buildDir, "classes/java/main"))
 
-        dependsOn("replaceValuePlaceholder")
-        finalizedBy(getByName("moveSourceFromTemp"))
+        dependsOn("cloneSource")
     }
 
     create("includeResources", Copy::class) {
@@ -62,6 +52,5 @@ tasks {
         dependsOn(getByName("includeResources"))
     }
 
-    getByName("build").dependsOn(getByName("moveSourceFromTemp"))
     getByName("jar").dependsOn(getByName("createLibraryJar"))
 }
