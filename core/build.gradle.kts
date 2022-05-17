@@ -16,12 +16,14 @@ dependencies {
     add("mappings", loom.officialMojangMappings())
 }
 
+val tmpSrcDir = File(buildDir, "tmpSrc/main/kotlin")
+
 tasks {
     create("cloneSource", Copy::class) {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
         from(File(projectDir, "src/main/kotlin/"))
-        into(File(buildDir, "tmpSrc/main/kotlin"))
+        into(tmpSrcDir)
 
         mapOf(
             "modId" to rootProject.name.toLowerCase(),
@@ -31,7 +33,10 @@ tasks {
     }
 
     compileKotlin {
+        doFirst { source = fileTree(tmpSrcDir) }
         destinationDirectory.set(File(buildDir, "classes/java/main"))
+
+        dependsOn("cloneSource")
     }
 
     create("includeResources", Copy::class) {
