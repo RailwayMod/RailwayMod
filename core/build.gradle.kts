@@ -17,16 +17,6 @@ dependencies {
 }
 
 tasks {
-    create("moveSourceToTemp", Copy::class) {
-        from(File(projectDir, "src/main/kotlin/"))
-        into(File(buildDir, "tempSrc/main/kotlin/"))
-    }
-
-    create("moveSourceFromTemp", Copy::class) {
-        from(File(buildDir, "tempSrc/main/kotlin/"))
-        into(File(projectDir, "src/main/kotlin/"))
-    }
-
     create("replaceValuePlaceholder", Copy::class) {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
@@ -38,15 +28,12 @@ tasks {
             "modName" to rootProject.name,
             "modVersion" to rootProject.version
         ).let { filter<ReplaceTokens>("tokens" to it) }
-
-        dependsOn(getByName("moveSourceToTemp"))
     }
 
     compileKotlin {
         destinationDirectory.set(File(buildDir, "classes/java/main"))
 
         dependsOn("replaceValuePlaceholder")
-        finalizedBy(getByName("moveSourceFromTemp"))
     }
 
     create("includeResources", Copy::class) {
@@ -62,6 +49,5 @@ tasks {
         dependsOn(getByName("includeResources"))
     }
 
-    getByName("build").dependsOn(getByName("moveSourceFromTemp"))
     getByName("jar").dependsOn(getByName("createLibraryJar"))
 }
