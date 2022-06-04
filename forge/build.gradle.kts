@@ -1,4 +1,5 @@
 import net.minecraftforge.gradle.userdev.UserDevExtension
+import org.apache.tools.ant.filters.ReplaceTokens
 
 buildscript {
     repositories {
@@ -36,6 +37,29 @@ tasks {
         from(configurations.api.get().apply { isCanBeResolved = true }.map { if (it.isDirectory) it else zipTree(it) })
 
         dependsOn(":core:jar")
+    }
+
+    processResources {
+        from(sourceSets.main.get().resources.srcDirs) {
+            include("**")
+
+            @Suppress("UNCHECKED_CAST")
+            mapOf(
+                "modId" to rootProject.name.toLowerCase(),
+                "modName" to rootProject.name,
+                "modVersion" to rootProject.version,
+                "issueTrackerURL" to ext.get("issueTracker"),
+                "updateJsonURL" to ext.get("forgeUpdateJsonURL"),
+                "modPage" to ext.get("modPage"),
+                "license" to ext.get("license"),
+                "authors" to
+                        listOf(
+                            ext.get("authors") as List<String>,
+                            ext.get("contributors") as List<String>
+                        ).flatten().joinToString("\n"),
+                "description" to ext.get("description")
+            ).let { filter<ReplaceTokens>("tokens" to it) }
+        }
     }
 
     compileKotlin.get().dependsOn(":core:jar")
