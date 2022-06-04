@@ -31,12 +31,13 @@ configure<UserDevExtension> {
 }
 
 tasks {
-    getByName("jar", Jar::class) {
-        archiveBaseName.set(rootProject.name + "-Forge")
+    jar {
+        destinationDirectory.set(ext.get("libsDir") as File)
+        archiveClassifier.set("")
 
         from(configurations.api.get().apply { isCanBeResolved = true }.map { if (it.isDirectory) it else zipTree(it) })
 
-        dependsOn(":core:jar")
+        finalizedBy("reobfJar")
     }
 
     processResources {
