@@ -40,4 +40,7 @@ tasks {
     }
 
 
+    remapJar {
+        enabled = false
+    }
 }
