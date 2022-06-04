@@ -17,7 +17,7 @@ apply(plugin = "net.minecraftforge.gradle")
 group = rootProject.group.toString() + ".forge"
 
 dependencies {
-    api(project(":core").dependencyProject.buildDir.let { fileTree(File(it, "devlibs")) })
+    api(fileTree(project(":core").dependencyProject.tasks.jar.get().archiveFile.get().asFile))
 
     api(kotlin("stdlib"))
 
@@ -37,4 +37,6 @@ tasks {
 
         dependsOn(":core:jar")
     }
+
+    compileKotlin.get().dependsOn(":core:jar")
 }
