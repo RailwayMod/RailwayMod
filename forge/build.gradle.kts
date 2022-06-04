@@ -35,7 +35,11 @@ tasks {
         destinationDirectory.set(ext.get("libsDir") as File)
         archiveClassifier.set("")
 
-        from(configurations.api.get().apply { isCanBeResolved = true }.map { if (it.isDirectory) it else zipTree(it) })
+        from(
+            configurations.api.get().copy()
+                .apply { isCanBeResolved = true }
+                .map { if (it.isDirectory) it else zipTree(it) }
+        )
 
         finalizedBy("reobfJar")
     }
