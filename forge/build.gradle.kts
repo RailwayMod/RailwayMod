@@ -41,7 +41,22 @@ tasks {
                 .map { if (it.isDirectory) it else zipTree(it) }
         )
 
-        finalizedBy("reobfJar")
+        finalizedBy("mappedJar", "reobfJar")
+    }
+
+    create("mappedJar", Jar::class) {
+        destinationDirectory.set(ext.get("libsDir") as File)
+        archiveClassifier.set("mapped")
+
+        from(sourceSets.main.get().output)
+
+        from(
+            configurations.api.get().copy()
+                .apply { isCanBeResolved = true }
+                .map { if (it.isDirectory) it else zipTree(it) }
+        )
+
+        dependsOn(":core:jar")
     }
 
     processResources {
