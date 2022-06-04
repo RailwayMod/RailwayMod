@@ -39,6 +39,10 @@ tasks {
         dependsOn("cloneSource")
     }
 
+    jar {
+        destinationDirectory.set(ext.get("libsDir") as File)
+        archiveClassifier.set("mapped")
+    }
 
     remapJar {
         enabled = false
