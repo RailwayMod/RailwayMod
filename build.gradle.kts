@@ -27,9 +27,6 @@ allprojects {
 
         withType<ProcessResources> {
             duplicatesStrategy = DuplicatesStrategy.INCLUDE
-
-            from(rootProject.file("LICENSE").path)
-            rename { "LICENSE_${rootProject.name}" }
         }
 
         withType<Jar> {
