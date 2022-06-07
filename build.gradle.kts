@@ -37,6 +37,8 @@ allprojects {
             archiveVersion.set("${rootProject.version}+${project.name}")
             archiveClassifier.set("")
             archiveExtension.set("jar")
+
+            dependsOn("includeLicense")
         }
 
         create("includeLicense", Copy::class) {
