@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     //Latest version: https://fabricmc.net/develop/
     id("fabric-loom") version "0.11-SNAPSHOT"
@@ -39,5 +41,41 @@ tasks {
         archiveExtension.set("jar")
 
         dependsOn("jar")
+    }
+
+    processResources {
+        from(sourceSets.main.get().resources.srcDirs) {
+            include("**")
+
+            @Suppress("UNCHECKED_CAST")
+            mapOf(
+                "modId" to rootProject.name.toLowerCase(),
+                "modName" to rootProject.name,
+                "modVersion" to rootProject.version,
+                "description" to ext.get("description"),
+                "license" to ext.get("license"),
+                "modPage" to ext.get("modPage"),
+                "issueTrackerURL" to ext.get("issueTracker"),
+                "sourcesURL" to ext.get("sourcesURL"),
+                "authors" to (ext.get("authors") as List<String>).let {
+                    if (it.isNotEmpty()) {
+                        it.joinToString(
+                            prefix = "\n        {\n            \"name\": \"",
+                            separator = "\"\n        },\n        {\n            \"name\": \"",
+                            postfix = "\"\n        }\n    "
+                        )
+                    } else ""
+                },
+                "contributors" to (ext.get("contributors") as List<String>).let {
+                    if (it.isNotEmpty()) {
+                        it.joinToString(
+                            prefix = "\n        {\n            \"name\": \"",
+                            separator = "\"\n        },\n        {\n            \"name\": \"",
+                            postfix = "\"\n        }\n    "
+                        )
+                    } else ""
+                }
+            ).let { filter<ReplaceTokens>("tokens" to it) }
+        }
     }
 }
