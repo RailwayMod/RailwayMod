@@ -31,6 +31,12 @@ allprojects {
 
         withType<Jar> {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+            archiveBaseName.set(rootProject.name)
+            archiveAppendix.set("")
+            archiveVersion.set("${rootProject.version}+${project.name}")
+            archiveClassifier.set("")
+            archiveExtension.set("jar")
         }
 
         create("includeLicense", Copy::class) {
