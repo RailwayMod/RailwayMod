@@ -80,4 +80,5 @@ tasks {
     }
 
     compileKotlin.get().dependsOn(":core:jar")
+    prepareRemapJar.get().dependsOn(":fabric:jar")
 }
