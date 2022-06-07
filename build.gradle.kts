@@ -76,3 +76,9 @@ allprojects {
         ).let { set("contributors", it) }
     }
 }
+
+configurations.create("includeToJar")
+
+dependencies {
+    add("includeToJar", kotlin("stdlib"))
+}
