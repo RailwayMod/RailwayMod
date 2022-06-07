@@ -59,6 +59,11 @@ allprojects {
     ext {
         set("libsDir", File(rootProject.buildDir, "libs/"))
 
+        set("modPage", "https://github.com/RailwayMod/")
+        set("sourcesURL", "https://github.com/RailwayMod/")
+        set("issueTracker", "https://github.com/RailwayMod/RailwayMod/issues")
+        set("forgeUpdateJsonURL", "")
+        set("license", "GNU General Public License v3.0")
         set("description", "Realistic train mod for Minecraft")
 
         //authors
