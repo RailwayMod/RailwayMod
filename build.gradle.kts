@@ -88,4 +88,25 @@ tasks {
         destinationDirectory.set(ext.get("libsDir") as File)
         archiveVersion.set("${rootProject.version}+all")
     }
+
+    jar {
+        archiveClassifier.set("mapped")
+
+        from(
+            listOf(
+                project(":core").sourceSets.main.get().output.files,
+                project(":fabric").sourceSets.main.get().output.files,
+                project(":forge").sourceSets.main.get().output.files
+            ).flatten()
+        )
+
+        from(
+            configurations.getByName("includeToJar").copy()
+                .apply { isCanBeResolved = true }
+                .map { if (it.isDirectory) it else zipTree(it) }
+        )
+
+        dependsOn(":core:jar", ":fabric:jar", ":forge:jar")
+        finalizedBy("obfuscatedJar")
+    }
 }
