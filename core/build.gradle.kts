@@ -39,18 +39,12 @@ tasks {
         dependsOn("cloneSource")
     }
 
-    create("includeResources", Copy::class) {
-        from(sourceSets.main.get().resources.srcDirs)
-        include("**")
-        into(File(buildDir, "resources/main/"))
+    jar {
+        destinationDirectory.set(ext.get("libsDir") as File)
+        archiveClassifier.set("mapped")
     }
 
-    //Gradle didn't create jar by task "jar"
-    create("createLibraryJar", Jar::class) {
-        archiveBaseName.set(project.name)
-
-        dependsOn(getByName("includeResources"))
+    remapJar {
+        enabled = false
     }
-
-    getByName("jar").dependsOn(getByName("createLibraryJar"))
 }
