@@ -27,4 +27,17 @@ tasks {
 
         from(configurations.api.get().apply { isCanBeResolved = true }.map { if (it.isDirectory) it else zipTree(it) })
     }
+
+    remapJar {
+        destinationDirectory.set(ext.get("libsDir") as File)
+
+        inputFile.set(jar.get().archiveFile.get())
+
+        archiveBaseName.set(rootProject.name)
+        archiveVersion.set("${rootProject.version}+${project.name}")
+        archiveClassifier.set("")
+        archiveExtension.set("jar")
+
+        dependsOn("jar")
+    }
 }
