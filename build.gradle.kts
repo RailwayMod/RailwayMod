@@ -33,7 +33,7 @@ allprojects {
         }
 
         withType<Jar> {
-            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         }
     }
 
