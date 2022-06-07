@@ -82,3 +82,10 @@ configurations.create("includeToJar")
 dependencies {
     add("includeToJar", kotlin("stdlib"))
 }
+
+tasks {
+    withType<Jar> {
+        destinationDirectory.set(ext.get("libsDir") as File)
+        archiveVersion.set("${rootProject.version}+all")
+    }
+}
