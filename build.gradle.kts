@@ -109,4 +109,17 @@ tasks {
         dependsOn(":core:jar", ":fabric:jar", ":forge:jar")
         finalizedBy("obfuscatedJar")
     }
+
+    create("obfuscatedJar", Jar::class) {
+        archiveClassifier.set("")
+
+        doFirst {
+            from(
+                zipTree(project(":fabric").tasks.getByName<org.gradle.jvm.tasks.Jar>("remapJar").archiveFile.get()),
+                zipTree(project(":forge").tasks.jar.get().archiveFile.get())
+            )
+        }
+
+        dependsOn(":fabric:remapJar", ":forge:jar")
+    }
 }
