@@ -63,5 +63,9 @@ allprojects {
         listOf(
             "Siro_256 Twitter: @ffffff_256"
         ).let { set("authors", it) }
+
+        //contributors
+        listOf<String>(
+        ).let { set("contributors", it) }
     }
 }
