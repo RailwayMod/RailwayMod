@@ -57,12 +57,11 @@ allprojects {
     }
 
     ext {
+        set("description", "Realistic train mod for Minecraft")
+
         //authors
         listOf(
             "Siro_256 Twitter: @ffffff_256"
         ).let { set("authors", it) }
-
-        //description
-        set("description", "Realistic train mod for Minecraft")
     }
 }
