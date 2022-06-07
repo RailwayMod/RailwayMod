@@ -40,6 +40,8 @@ allprojects {
                 rename { "LICENSE_${rootProject.name}" }
             }
         }
+
+        processResources.get().finalizedBy("includeLicense")
     }
 
     configurations.all {
