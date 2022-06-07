@@ -57,10 +57,6 @@ allprojects {
     }
 
     ext {
-        //credits
-        listOf<String>(
-        ).let { set("credits", it) }
-
         //authors
         listOf(
             "Siro_256 Twitter: @ffffff_256"
