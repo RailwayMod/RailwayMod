@@ -35,6 +35,14 @@ allprojects {
         withType<Jar> {
             duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         }
+
+        create("includeLicense", Copy::class) {
+            destinationDir = File(project.buildDir, "resources/main/")
+
+            from(rootProject.file("LICENSE").path) {
+                rename { "LICENSE_${rootProject.name}" }
+            }
+        }
     }
 
     configurations.all {
