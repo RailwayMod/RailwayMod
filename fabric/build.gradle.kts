@@ -78,4 +78,6 @@ tasks {
             ).let { filter<ReplaceTokens>("tokens" to it) }
         }
     }
+
+    compileKotlin.get().dependsOn(":core:jar")
 }
