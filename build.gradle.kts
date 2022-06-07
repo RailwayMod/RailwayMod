@@ -57,6 +57,8 @@ allprojects {
     }
 
     ext {
+        set("libsDir", File(rootProject.buildDir, "libs/"))
+
         set("description", "Realistic train mod for Minecraft")
 
         //authors
