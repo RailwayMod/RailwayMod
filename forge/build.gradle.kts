@@ -23,7 +23,7 @@ dependencies {
     api(kotlin("stdlib"))
 
     //Forge
-    add("minecraft", "net.minecraftforge:forge:1.18.2-40.0.12")
+    add("minecraft", "net.minecraftforge:forge:1.18.2-40.1.73")
 }
 
 configure<UserDevExtension> {

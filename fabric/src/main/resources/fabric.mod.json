@@ -1,0 +1,27 @@
+{
+    "schemaVersion": 1,
+    "id": "@modId@",
+    "name": "@modName@",
+    "version": "@modVersion@",
+    "icon": "logo.png",
+    "description": "@description@",
+    "license": [
+        "@license@"
+    ],
+    "contact": {
+        "homepage": "@modPage@",
+        "issues": "@issueTrackerURL@",
+        "sources": "@sourcesURL@"
+    },
+    "authors": [@authors@],
+    "contributors": [@contributors@],
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "dev.siro256.mcmod.railwaymod.fabric.RailwayMod"
+        ],
+        "client": [
+            "dev.siro256.mcmod.railwaymod.fabric.RailwayMod"
+        ]
+    }
+}

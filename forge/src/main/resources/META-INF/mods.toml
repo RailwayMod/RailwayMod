@@ -1,0 +1,15 @@
+modLoader = "javafml"
+loaderVersion = "[40,)"
+license = "@license@"
+issueTrackerURL = "@issueTrackerURL@"
+showAsResourcePack = false
+
+[[mods]]
+modId = "@modId@"
+displayName = "@modName@"
+version = "@modVersion@"
+updateJSONURL = "@updateJsonURL@"
+displayURL = "@modPage@"
+logoFile = "logo.png"
+authors = "@authors@"
+description = "@description@"

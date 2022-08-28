@@ -10,6 +10,8 @@ group = rootProject.group.toString() + ".core"
 dependencies {
     implementation(kotlin("stdlib"))
 
+    api("org.joml:joml:1.10.4")
+
     //Minecraft API, using fabric's mapping
     //Latest version: https://fabricmc.net/develop/
     add("minecraft", "com.mojang:minecraft:1.18.2")
@@ -42,6 +44,8 @@ tasks {
     jar {
         destinationDirectory.set(ext.get("libsDir") as File)
         archiveClassifier.set("mapped")
+
+        from(configurations.api.get().copy().apply { isCanBeResolved = true }.map { if (it.isDirectory) it else zipTree(it) })
     }
 
     remapJar {
