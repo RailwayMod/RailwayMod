@@ -38,11 +38,6 @@ class RendererTestEntity(context: EntityRendererProvider.Context): EntityRendere
         multiBufferSource: MultiBufferSource,
         light: Int
     ) {
-        //super.render(entity, yaw, tickDelta, poseStack, multiBufferSource, light)
-        //val logger = LogManager.getLogger("RailwayMod/Debug")
-
-        //val shader = RenderDataManager.getShader(ResourceLocation(Values.MOD_ID, "test")).get()
-
         val bufferBuilder = multiBufferSource.getBuffer(RenderType.entityCutoutNoCull(entity.textureLocation)) as BufferBuilder
 
         model.objects.flatMap { it.surface }.flatMap { it.vertices }.forEach {
@@ -62,52 +57,6 @@ class RendererTestEntity(context: EntityRendererProvider.Context): EntityRendere
                 normal3f.x(), normal3f.y(), normal3f.z()
             )
         }
-
-//        glUseProgram(shader)
-//        glBindVertexArray(vertexArrayObject)
-//        glBindBuffer(GL_ARRAY_BUFFER, vertexAttributeBuffer)
-//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer)
-//
-//        val iPositionLocation = glGetAttribLocation(shader, "position")
-//        if (iPositionLocation == -1) throw RuntimeException("Can't get position location.")
-//        val iUVLocation = glGetAttribLocation(shader, "uvIn")
-//        if (iUVLocation == -1) throw RuntimeException("Can't get uvIn location.")
-//
-//        val uModelViewMatrixLocation = glGetUniformLocation(shader, "modelViewMatrix")
-//        if (uModelViewMatrixLocation == -1) throw RuntimeException("Can't get modelViewMatrix location.")
-//        val uProjectionMatrixLocation = glGetUniformLocation(shader, "projectionMatrix")
-//        if (uProjectionMatrixLocation == -1) throw RuntimeException("Can't get projectionMatrix location.")
-//        val uTextureSamplerLocation = glGetUniformLocation(shader, "textureSampler")
-//        if (uTextureSamplerLocation == -1) throw RuntimeException("Can't get textureSampler location.")
-//
-//        glVertexAttribPointer(iPositionLocation, 3, GL_FLOAT, false, 5 * Float.SIZE_BYTES, 0)
-//        glEnableVertexAttribArray(iPositionLocation)
-//        glVertexAttribPointer(iUVLocation, 2, GL_FLOAT, false, 5 * Float.SIZE_BYTES, 3L * Float.SIZE_BYTES)
-//        glEnableVertexAttribArray(iUVLocation)
-//
-//        glUniformMatrix4fv(
-//            uModelViewMatrixLocation,
-//            false,
-//            FloatBuffer.allocate(16).apply { poseStack.last().pose().store(this) }.array()
-//        )
-//        glUniformMatrix4fv(
-//            uProjectionMatrixLocation,
-//            false,
-//            FloatBuffer.allocate(16).apply { RenderSystem.getProjectionMatrix().store(this) }.array()
-//        )
-//
-//        glUniform1i(uTextureSamplerLocation, 0)
-//        glActiveTexture(GL_TEXTURE0)
-//        Minecraft.getInstance().textureManager.getTexture(entity.textureLocation).bind()
-//
-//        glEnable(GL_DEPTH_TEST)
-//
-//        glDrawElements(GL_TRIANGLES, numberOfVertices, GL_UNSIGNED_INT, 0)
-//
-//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer)
-//        glBindBuffer(GL_ARRAY_BUFFER, vertexAttributeBuffer)
-//        glBindVertexArray(vertexArrayObject)
-//        glUseProgram(0)
     }
 
     companion object {
